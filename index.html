@@ -11,16 +11,12 @@
             overflow: hidden; touch-action: manipulation;
         }
         .container { text-align: center; width: 90%; max-width: 400px; }
-        h1 { color: #d63384; font-size: 24px; margin-bottom: 10px; }
-        p { color: #ff758f; font-weight: bold; }
-
-        /* STAGE 1: GIFT BOX TAP */
-        .gift-container { font-size: 80px; cursor: pointer; transition: transform 0.1s; margin: 20px 0; }
-
-        /* STAGE 2: LIQUID HEART */
+        h1 { color: #d63384; font-size: 22px; }
+        
+        /* LIQUID HEART STYLES */
         .heart-container {
             width: 150px; height: 130px; margin: 20px auto; position: relative;
-            cursor: pointer; transform: scale(1.2);
+            cursor: pointer;
         }
         .heart-shape {
             position: absolute; width: 100%; height: 100%;
@@ -31,44 +27,39 @@
             position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
             background: linear-gradient(to top, #ff4d6d, #ff758f);
             clip-path: path("M75 130 C10 80 -10 30 25 10 A35 35 0 0 1 75 40 A35 35 0 0 1 125 10 C160 30 140 80 75 130 Z");
-            transition: height 0.4s ease-out;
+            transition: height 0.3s ease-out;
         }
 
-        /* STAGE 3: QUESTION SIDE BY SIDE */
-        .btn-wrapper { display: flex; justify-content: center; gap: 20px; margin-top: 20px; position: relative; height: 100px; }
-        button { padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 18px; }
-        .yes-btn { background: #ff4d6d; color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); }
-        .no-btn { background: #adb5bd; color: white; position: relative; transition: all 0.2s ease; }
+        .btn-wrapper { display: flex; justify-content: center; gap: 20px; margin-top: 20px; position: relative; height: 80px;}
+        button { padding: 12px 25px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; }
+        .yes-btn { background: #ff4d6d; color: white; }
+        .no-btn { background: #adb5bd; color: white; position: relative; transition: all 0.2s; }
         
-        img { width: 100%; border-radius: 20px; margin-bottom: 15px; }
-        #stage2, #stage3, #stage4 { display: none; }
+        img { width: 100%; border-radius: 20px; margin-bottom: 10px; }
+        #stage2, #stage3, #stage4, #yt-player { display: none; }
     </style>
 </head>
 <body>
 
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
     <div class="container">
         <div id="stage1">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3cjF5ZWU1M3E0OHR4bmN6YXZ1eW56bm94ZXh6bm94ZXh6bm94ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K97lVxP6Gv756/giphy.gif">
-            <h1>A gift for you!</h1>
-            <div class="gift-container" id="gift" onclick="tapGift()">🎁</div>
-            <p id="giftText">Tap 5 times to open!</p>
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3cjF5ZWU1M3E0OHR4bmN6YXZ1eW56bm94ZXh6bm94ZXh6bm94ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K97lVxP6Gv756/giphy.gif">
+            <h1>A surprise for you!</h1>
+            <div style="font-size: 60px; cursor: pointer;" onclick="startExperience()">🎁</div>
+            <p>Tap the gift to start!</p>
         </div>
 
         <div id="stage2">
             <h1>Fill the heart with love!</h1>
-            <div class="heart-container" onclick="fillHeart()">
+            <div class="heart-container" onclick="fillLiquid()">
                 <div class="heart-shape"></div>
                 <div class="heart-liquid" id="liquid"></div>
             </div>
-            <p id="meterText">Love Meter: 0%</p>
+            <p id="percent">Tap to fill: 0%</p>
         </div>
 
         <div id="stage3">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDasajdVtEAc5vB/giphy.gif">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDasajdVtEAc5vB/giphy.gif">
             <h1>Will you be my Valentine? 💖</h1>
             <div class="btn-wrapper">
                 <button class="yes-btn" onclick="showStage(4)">Yes</button>
@@ -77,44 +68,39 @@
         </div>
 
         <div id="stage4">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnRreXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif">
-            <h1>Yay! Best Valentine ever! 🥰</h1>
-            <p>I love you so much!</p>
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnRreXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif">
+            <h1>Yay! I love you! 🥰</h1>
+            <div id="yt-player">
+                <iframe id="musicFrame" width="1" height="1" src="" frameborder="0" allow="autoplay"></iframe>
+            </div>
         </div>
     </div>
 
     <script>
-        let giftTaps = 0;
-        let fill = 0;
+        function startExperience() {
+            // This starts the YouTube music in the background
+            // Song: "Sa Susunod Na Habang Buhay" or similar by Ebe/Zephanie
+            document.getElementById('musicFrame').src = "https://www.youtube.com/embed/S2pEvi8X_00?autoplay=1";
+            showStage(2);
+        }
+
+        let fillPercent = 0;
+        function fillLiquid() {
+            fillPercent += 10;
+            document.getElementById('liquid').style.height = fillPercent + '%';
+            document.getElementById('percent').innerText = 'Love Meter: ' + fillPercent + '%';
+            if(fillPercent >= 100) {
+                setTimeout(() => showStage(3), 500);
+            }
+        }
+
         let noCount = 0;
-
-        function tapGift() {
-            giftTaps++;
-            const gift = document.getElementById('gift');
-            gift.style.transform = 'scale(1.2)';
-            setTimeout(() => gift.style.transform = 'scale(1)', 100);
-            
-            // Start music on first tap
-            document.getElementById('bgMusic').play().catch(() => {});
-
-            document.getElementById('giftText').innerText = `Keep tapping! (${5 - giftTaps} left)`;
-            if (giftTaps >= 5) showStage(2);
-        }
-
-        function fillHeart() {
-            fill += 10;
-            document.getElementById('liquid').style.height = fill + '%';
-            document.getElementById('meterText').innerText = 'Love Meter: ' + fill + '%';
-            if (fill >= 100) setTimeout(() => showStage(3), 600);
-        }
-
         function moveNo() {
             noCount++;
             const btn = document.getElementById('noBtn');
             if(noCount < 5) {
-                const x = Math.random() * 160 - 80;
-                const y = Math.random() * 60 - 30;
-                btn.style.transform = `translate(${x}px, ${y}px)`;
+                btn.style.left = (Math.random() * 140 - 70) + "px";
+                btn.style.top = (Math.random() * 60 - 30) + "px";
             } else {
                 btn.style.display = 'none';
             }
