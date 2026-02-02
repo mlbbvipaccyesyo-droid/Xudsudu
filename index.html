@@ -31,7 +31,7 @@
             position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
             background: linear-gradient(to top, #ff4d6d, #ff758f);
             clip-path: path("M75 130 C10 80 -10 30 25 10 A35 35 0 0 1 75 40 A35 35 0 0 1 125 10 C160 30 140 80 75 130 Z");
-            transition: height 0.8s ease-in-out; /* Made the fill slower and smoother */
+            transition: height 0.8s ease-in-out; 
         }
 
         /* STAGE 3: SIDE BY SIDE BUTTONS */
@@ -68,13 +68,14 @@
 
     <div class="container">
         <div id="stage1">
-            <img src="https://media.tenor.com/79X_R_6v_nIAAAAi/gift-box-unboxing.gif" alt="Gift">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3cjF5ZWU1M3E0OHR4bmN6YXZ1eW56bm94ZXh6bm94ZXh6bm94ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K97lVxP6Gv756/giphy.gif" alt="Gift">
             <h1>Something for you...</h1>
             <div class="gift-container" id="gift" onclick="startEverything()">🎁</div>
             <p id="giftText">Tap to open & play music! 🎵</p>
         </div>
 
         <div id="stage2">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/vFKqnCdLPNOKc/giphy.gif" alt="Sweet">
             <h1>Fill the heart with your love...</h1>
             <div class="heart-container" onclick="fillHeart()">
                 <div class="heart-shape"></div>
@@ -84,7 +85,7 @@
         </div>
 
         <div id="stage3">
-            <img src="https://media.tenor.com/U65-RAsv5vUAAAAi/mochi-mochi-peach-cat-cat.gif" alt="Asking">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDasajdVtEAc5vB/giphy.gif" alt="Asking">
             <h1>Will you be my Valentine? 💖</h1>
             <div class="btn-wrapper">
                 <button class="yes-btn" onclick="showStage(4)">Yes</button>
@@ -93,7 +94,7 @@
         </div>
 
         <div id="stage4">
-            <img src="https://media.tenor.com/X_O8x7Kbe0oAAAAi/peach-goma-peach-and-goma.gif" alt="Success">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnRreXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif" alt="Success">
             <h1>Yay! I love you! 🥰</h1>
             <p>You've made me the happiest!</p>
         </div>
@@ -105,10 +106,9 @@
         let noCount = 0;
 
         function startEverything() {
-            // Instant music play on first interaction
             const music = document.getElementById('bgMusic');
             if (!musicStarted) {
-                music.play().catch(e => console.log("Click again to play music"));
+                music.play().catch(e => console.log("Music Triggered"));
                 musicStarted = true;
             }
             showStage(2);
@@ -116,12 +116,12 @@
 
         function fillHeart() {
             if (fill < 100) {
-                fill += 5; // Smaller increments for a slower, more romantic feel
+                fill += 5; 
                 document.getElementById('liquid').style.height = fill + '%';
                 document.getElementById('meterText').innerText = 'Love Meter: ' + fill + '%';
                 
                 if (fill >= 100) {
-                    setTimeout(() => showStage(3), 1000); // 1 second pause to see the full heart
+                    setTimeout(() => showStage(3), 1000); 
                 }
             }
         }
@@ -130,13 +130,12 @@
             noCount++;
             const btn = document.getElementById('noBtn');
             if(noCount < 6) {
-                // Moves the button within the container area so it doesn't vanish
                 const x = Math.random() * 150 - 75;
                 const y = Math.random() * 100 - 50;
                 btn.style.position = "absolute";
                 btn.style.transform = `translate(${x}px, ${y}px)`;
             } else {
-                btn.style.display = 'none'; // Finally disappears after 6 attempts
+                btn.style.display = 'none'; 
             }
         }
 
