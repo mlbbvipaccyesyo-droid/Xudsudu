@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Surprise For You</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For My Valentine ❤️</title>
     <style>
         body {
             margin: 0;
@@ -14,78 +13,79 @@
             align-items: center;
             height: 100vh;
             background-color: #ffeef2;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden; /* Stop scrolling */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            touch-action: manipulation;
         }
 
         .container {
             text-align: center;
-            position: relative;
             width: 90%;
             max-width: 400px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
         }
 
-        /* STAGE 1: GIFT BOX */
-        #stage1 { display: block; }
+        h1 { color: #d63384; font-size: 26px; }
+        p { color: #ff4d6d; font-weight: bold; }
+
+        img {
+            width: 100%;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* STAGE 1: GIFT BOX TAPPING */
         .gift-box {
             font-size: 80px;
             cursor: pointer;
-            animation: shake 2s infinite;
+            display: inline-block;
+            transition: transform 0.1s;
         }
-        @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-5deg); }
-            100% { transform: rotate(0deg); }
-        }
-        .instruction { color: #d63384; margin-top: 10px; }
 
-        /* STAGE 2: HEART FILLING */
+        /* STAGE 2: HEART TAPPING */
         #stage2 { display: none; }
-        .heart-container {
-            width: 150px;
-            height: 130px;
-            margin: 0 auto;
-            position: relative;
+        .heart-btn {
+            font-size: 80px;
             cursor: pointer;
-        }
-        .heart-outline {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: #ffccd5;
-            clip-path: path("M75 130 C10 80 -10 30 25 10 A35 35 0 0 1 75 40 A35 35 0 0 1 125 10 C160 30 140 80 75 130 Z");
-        }
-        .heart-fill {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 0%; /* Starts empty */
-            background-color: #ff4d6d;
-            clip-path: path("M75 130 C10 80 -10 30 25 10 A35 35 0 0 1 75 40 A35 35 0 0 1 125 10 C160 30 140 80 75 130 Z");
-            transition: height 0.2s ease;
+            transition: transform 0.1s;
         }
 
-        /* STAGE 3: THE QUESTION */
+        /* STAGE 3: THE QUESTION (SIDE BY SIDE) */
         #stage3 { display: none; }
-        h1 { color: #d63384; font-family: 'Fredoka One', cursive; }
-        img { width: 100%; border-radius: 15px; margin-bottom: 20px; }
-        
-        .btn-group { position: relative; height: 60px; margin-top: 20px; }
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            height: 100px;
+        }
         
         button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             font-size: 18px;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            font-family: 'Fredoka One', cursive;
-            transition: transform 0.2s;
+            font-weight: bold;
+            min-width: 100px;
         }
-        .yes-btn { background-color: #ff4d6d; color: white; box-shadow: 0 4px 10px rgba(255, 77, 109, 0.4); }
-        .no-btn { background-color: #adb5bd; color: white; position: absolute; left: 50%; transform: translateX(-50%); }
+
+        .yes-btn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .no-btn {
+            background-color: #adb5bd;
+            color: white;
+            transition: all 0.2s ease;
+        }
 
         /* STAGE 4: SUCCESS */
         #stage4 { display: none; }
@@ -96,83 +96,82 @@
     <div class="container">
         
         <div id="stage1">
-            <div class="gift-box" onclick="openGift()">🎁</div>
-            <p class="instruction">Tap to open!</p>
+            <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3cjF5ZWU1M3E0OHR4bmN6YXZ1eW56bm94ZXh6bm94ZXh6bm94ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K97lVxP6Gv756/giphy.gif">
+            <h1>A gift for you!</h1>
+            <div class="gift-box" id="gift" onclick="tapGift()">🎁</div>
+            <p id="giftText">Tap 5 times to open!</p>
         </div>
 
         <div id="stage2">
-            <h1>Fill the heart with love!</h1>
-            <div class="heart-container" onclick="fillHeart()">
-                <div class="heart-outline"></div>
-                <div class="heart-fill" id="heartFill"></div>
-            </div>
-            <p class="instruction" id="tapText">Tap tap tap! (0%)</p>
+            <h1>Pump up the Love!</h1>
+            <div class="heart-btn" id="heart" onclick="tapHeart()">❤️</div>
+            <p id="heartText">Love Meter: 0%</p>
         </div>
 
         <div id="stage3">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDasajdVtEAc5vB/giphy.gif" alt="Cute Cat">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDasajdVtEAc5vB/giphy.gif">
             <h1>Will you be my Valentine? 💖</h1>
-            <div class="btn-group">
-                <button class="yes-btn" onclick="handleYes()">Yes</button>
-                <button class="no-btn" id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+            <div class="btn-wrapper">
+                <button class="yes-btn" onclick="nextStage(4)">Yes</button>
+                <button class="no-btn" id="noBtn" onclick="moveNo()">No</button>
             </div>
         </div>
 
         <div id="stage4">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnRreXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif" alt="Happy Cat">
-            <h1>Yay! I love you! 🥰</h1>
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnRreXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif">
+            <h1>Yay! Best Valentine ever! 🥰</h1>
+            <p>I love you so much!</p>
         </div>
 
     </div>
 
     <script>
-        // --- STAGE 1 LOGIC ---
-        function openGift() {
-            document.getElementById('stage1').style.display = 'none';
-            document.getElementById('stage2').style.display = 'block';
-        }
+        let giftTaps = 0;
+        let heartTaps = 0;
+        let noClicks = 0;
 
-        // --- STAGE 2 LOGIC ---
-        let fillLevel = 0;
-        function fillHeart() {
-            fillLevel += 10; // Increases by 10% per tap
-            const heartFill = document.getElementById('heartFill');
-            const tapText = document.getElementById('tapText');
+        function tapGift() {
+            giftTaps++;
+            const gift = document.getElementById('gift');
+            gift.style.transform = 'scale(1.2)';
+            setTimeout(() => gift.style.transform = 'scale(1)', 100);
             
-            heartFill.style.height = fillLevel + '%';
-            tapText.innerText = `Tap tap tap! (${fillLevel}%)`;
-
-            if (fillLevel >= 100) {
-                setTimeout(() => {
-                    document.getElementById('stage2').style.display = 'none';
-                    document.getElementById('stage3').style.display = 'block';
-                }, 500); // Small delay before showing the question
+            document.getElementById('giftText').innerText = `Keep tapping! (${5 - giftTaps} left)`;
+            
+            if (giftTaps >= 5) {
+                nextStage(2);
             }
         }
 
-        // --- STAGE 3 LOGIC ---
-        let noClickCount = 0;
-        const noBtn = document.getElementById('noBtn');
+        function tapHeart() {
+            heartTaps++;
+            const heart = document.getElementById('heart');
+            heart.style.transform = `scale(${1 + (heartTaps * 0.1)})`;
+            document.getElementById('heartText').innerText = `Love Meter: ${heartTaps * 10}%`;
+            
+            if (heartTaps >= 10) {
+                setTimeout(() => nextStage(3), 300);
+            }
+        }
 
         function moveNo() {
-            noClickCount++;
-            
-            // IF pressed less than 5 times, it moves
-            if (noClickCount < 5) {
-                const x = Math.random() * 200 - 100; // Random Move Left/Right
-                const y = Math.random() * 200 - 100; // Random Move Up/Down
+            noClicks++;
+            const noBtn = document.getElementById('noBtn');
+            if (noClicks < 5) {
+                const x = Math.random() * 160 - 80;
+                const y = Math.random() * 100 - 50;
                 noBtn.style.transform = `translate(${x}px, ${y}px)`;
-                noBtn.style.transition = "transform 0.2s ease";
-            } 
-            // IF pressed 5 times (or more), it disappears
-            else {
+            } else {
                 noBtn.style.display = 'none';
             }
         }
 
-        function handleYes() {
+        function nextStage(stageNum) {
+            document.getElementById('stage1').style.display = 'none';
+            document.getElementById('stage2').style.display = 'none';
             document.getElementById('stage3').style.display = 'none';
-            document.getElementById('stage4').style.display = 'block';
+            document.getElementById('stage4').style.display = 'none';
+            document.getElementById('stage' + stageNum).style.display = 'block';
         }
     </script>
 </body>
