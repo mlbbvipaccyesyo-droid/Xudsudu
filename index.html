@@ -6,113 +6,69 @@
     <title>For My Valentine ❤️</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #ffeef2;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-            touch-action: manipulation;
+            margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
+            height: 100vh; background-color: #ffeef2; font-family: 'Arial', sans-serif;
+            overflow: hidden; touch-action: manipulation;
+        }
+        .container { text-align: center; width: 90%; max-width: 400px; }
+        h1 { color: #d63384; font-size: 22px; margin-bottom: 10px; }
+        p { color: #ff758f; font-weight: bold; }
+
+        /* LIQUID HEART */
+        .heart-container {
+            width: 150px; height: 130px; margin: 20px auto; position: relative;
+            cursor: pointer; transform: scale(1.2);
+        }
+        .heart-shape {
+            position: absolute; width: 100%; height: 100%;
+            background-color: #ffccd5;
+            clip-path: path("M75 130 C10 80 -10 30 25 10 A35 35 0 0 1 75 40 A35 35 0 0 1 125 10 C160 30 140 80 75 130 Z");
+        }
+        .heart-liquid {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
+            background: linear-gradient(to top, #ff4d6d, #ff758f);
+            clip-path: path("M75 130 C10 80 -10 30 25 10 A35 35 0 0 1 75 40 A35 35 0 0 1 125 10 C160 30 140 80 75 130 Z");
+            transition: height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .container {
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.5);
-            padding: 20px;
-            border-radius: 30px;
-            box-shadow: 0 10px 25px rgba(255, 182, 193, 0.3);
-        }
-
-        h1 { color: #d63384; font-size: 26px; }
-        p { color: #ff4d6d; font-weight: bold; }
-
-        img {
-            width: 100%;
-            border-radius: 20px;
-            margin-bottom: 15px;
-        }
-
-        /* STAGE 1: GIFT BOX TAPPING */
-        .gift-box {
-            font-size: 80px;
-            cursor: pointer;
-            display: inline-block;
-            transition: transform 0.1s;
-        }
-
-        /* STAGE 2: HEART TAPPING */
-        #stage2 { display: none; }
-        .heart-btn {
-            font-size: 80px;
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        /* STAGE 3: THE QUESTION (SIDE BY SIDE) */
-        #stage3 { display: none; }
-        .btn-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            margin-top: 20px;
-            position: relative;
-            height: 100px;
-        }
+        /* BUTTONS */
+        .btn-wrapper { display: flex; justify-content: center; gap: 20px; margin-top: 20px; position: relative; height: 100px; }
+        button { padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .yes-btn { background: #ff4d6d; color: white; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); }
+        .no-btn { background: #adb5bd; color: white; position: absolute; transition: all 0.2s ease; }
         
-        button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            min-width: 100px;
-        }
-
-        .yes-btn {
-            background-color: #ff4d6d;
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-        }
-
-        .no-btn {
-            background-color: #adb5bd;
-            color: white;
-            transition: all 0.2s ease;
-        }
-
-        /* STAGE 4: SUCCESS */
-        #stage4 { display: none; }
+        img { width: 100%; border-radius: 20px; margin-bottom: 15px; }
+        #stage2, #stage3, #stage4 { display: none; }
     </style>
 </head>
 <body>
 
+    <audio id="myAudio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="container">
-        
         <div id="stage1">
             <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3cjF5ZWU1M3E0OHR4bmN6YXZ1eW56bm94ZXh6bm94ZXh6bm94ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/K97lVxP6Gv756/giphy.gif">
-            <h1>A gift for you!</h1>
-            <div class="gift-box" id="gift" onclick="tapGift()">🎁</div>
-            <p id="giftText">Tap 5 times to open!</p>
+            <h1>I have a surprise for you...</h1>
+            <div style="font-size: 80px; cursor: pointer;" onclick="openGift()">🎁</div>
+            <p>Tap the gift to open!</p>
         </div>
 
         <div id="stage2">
-            <h1>Pump up the Love!</h1>
-            <div class="heart-btn" id="heart" onclick="tapHeart()">❤️</div>
-            <p id="heartText">Love Meter: 0%</p>
+            <h1>Fill the heart with love!</h1>
+            <div class="heart-container" onclick="fillHeart()">
+                <div class="heart-shape"></div>
+                <div class="heart-liquid" id="liquid"></div>
+            </div>
+            <p id="meterText">Meter: 0%</p>
         </div>
 
         <div id="stage3">
             <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueXo1amZ4Z3Y1eXp6Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4Z3Z4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVDasajdVtEAc5vB/giphy.gif">
             <h1>Will you be my Valentine? 💖</h1>
             <div class="btn-wrapper">
-                <button class="yes-btn" onclick="nextStage(4)">Yes</button>
+                <button class="yes-btn" onclick="showStage(4)">Yes</button>
                 <button class="no-btn" id="noBtn" onclick="moveNo()">No</button>
             </div>
         </div>
@@ -122,56 +78,49 @@
             <h1>Yay! Best Valentine ever! 🥰</h1>
             <p>I love you so much!</p>
         </div>
-
     </div>
 
     <script>
-        let giftTaps = 0;
-        let heartTaps = 0;
-        let noClicks = 0;
+        function openGift() {
+            // Play music.mp3
+            const audio = document.getElementById('myAudio');
+            audio.play().catch(e => console.log("Audio play failed, will try again on next tap"));
+            showStage(2);
+        }
 
-        function tapGift() {
-            giftTaps++;
-            const gift = document.getElementById('gift');
-            gift.style.transform = 'scale(1.2)';
-            setTimeout(() => gift.style.transform = 'scale(1)', 100);
+        let fill = 0;
+        function fillHeart() {
+            fill += 10;
+            document.getElementById('liquid').style.height = fill + '%';
+            document.getElementById('meterText').innerText = 'Meter: ' + fill + '%';
             
-            document.getElementById('giftText').innerText = `Keep tapping! (${5 - giftTaps} left)`;
-            
-            if (giftTaps >= 5) {
-                nextStage(2);
+            // Try to play audio again just in case browser blocked it the first time
+            document.getElementById('myAudio').play();
+
+            if (fill >= 100) {
+                setTimeout(() => showStage(3), 600);
             }
         }
 
-        function tapHeart() {
-            heartTaps++;
-            const heart = document.getElementById('heart');
-            heart.style.transform = `scale(${1 + (heartTaps * 0.1)})`;
-            document.getElementById('heartText').innerText = `Love Meter: ${heartTaps * 10}%`;
-            
-            if (heartTaps >= 10) {
-                setTimeout(() => nextStage(3), 300);
-            }
-        }
-
+        let noCount = 0;
         function moveNo() {
-            noClicks++;
-            const noBtn = document.getElementById('noBtn');
-            if (noClicks < 5) {
+            noCount++;
+            const btn = document.getElementById('noBtn');
+            if(noCount < 5) {
                 const x = Math.random() * 160 - 80;
-                const y = Math.random() * 100 - 50;
-                noBtn.style.transform = `translate(${x}px, ${y}px)`;
+                const y = Math.random() * 80 - 40;
+                btn.style.transform = `translate(${x}px, ${y}px)`;
             } else {
-                noBtn.style.display = 'none';
+                btn.style.display = 'none';
             }
         }
 
-        function nextStage(stageNum) {
+        function showStage(num) {
             document.getElementById('stage1').style.display = 'none';
             document.getElementById('stage2').style.display = 'none';
             document.getElementById('stage3').style.display = 'none';
             document.getElementById('stage4').style.display = 'none';
-            document.getElementById('stage' + stageNum).style.display = 'block';
+            document.getElementById('stage' + num).style.display = 'block';
         }
     </script>
 </body>
